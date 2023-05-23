@@ -1,0 +1,28 @@
+<h1><%= @list.name %></h1>
+<div><%= link_to "add bookmark", new_list_bookmark_path(@list) %></div>
+<div><%= link_to "back to lists", lists_path %></div>
+<div><%= link_to "delete list", list_path(@list), data: {turbo_method: :delete, turbo_Confirm: "Are you sure?"}  %></div>
+
+<div class="container">
+  <div class="row">
+
+    <% @list.movies.each do |movie| %>
+      <div class="col-4">
+       <div class="card" style="width: 18rem;">
+       <img src= <%=movie.poster_url%> class="card-img-top" alt="...">
+         <div class="card-body">
+           <h5 class="card-title"><%= movie.title %></h5>
+           <p class="card-text"><%= movie.overview %></p>
+           <p class="card-text"><%= movie.rating %></p>
+
+          <% movie.bookmarks.each do |bookmark| %>
+            <%= link_to "x", bookmark_path(bookmark), data: {turbo_method: :delete, turbo_Confirm: "Are you sure?"}, class: "text-decoration-none"  %>
+          <% end %>
+
+         </div>
+       </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>
